@@ -18,6 +18,10 @@ mongo = pymongo.MongoClient('mongodb+srv://admin:admin@cluster0-idj9s.gcp.mongod
 db = pymongo.database.Database(mongo, 'matoula1')
 
 
+@app.route('/')
+def build_test():
+	return "Welcome to Matoula!"
+
 @app.route('/tests/build_test')
 def build_test():
 	return "Passed"
