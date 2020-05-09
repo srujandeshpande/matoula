@@ -69,6 +69,6 @@ def add_new_item():
         if i['_id'] == inputData['email']:
             newcount = int(i['count'])+1
             User_Data.update_one({"_id":inputData["email"]},{"count":newcount})
-            Item_Data.insert_one({"email":i['_id'], "index":newcount, "name":inputData["name"], "type":inputData["type"], "color":inputData["color"], "addedDate":inputData["dateTime"], "image":inputData["image"])
+            Item_Data.insert_one({"email":i['_id'], "index":newcount, "name":inputData["name"], "type":inputData["type"], "color":inputData["color"], "addedDate":inputData["dateTime"], "image":inputData["image"]})
             return Response(status=200)
     return Response(status=403)
