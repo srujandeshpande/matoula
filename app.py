@@ -7,6 +7,7 @@ from io import StringIO
 import base64
 import requests
 import random
+from datetime import date
 
 app = Flask(__name__)
 CORS(app)
@@ -89,15 +90,23 @@ def forgot_password():
 
 
 #Add new clothing
-@app.route('/api/add_new_item', methods=['POST'])
+@app.route('/add_new_item', methods=['POST'])
 def add_new_item():
     Item_Data = pymongo.collection.Collection(db, 'Item_Data')
     User_Data = pymongo.collection.Collection(db, 'User_Data')
-    inputData = request.json
+    inputData = request.form
     for i in json.loads(dumps(User_Data.find())):
-        if i['_id'] == inputData['email']:
+        if i['_id'] == session['email']:
             newcount = int(i['count'])+1
-            User_Data.update_one({"_id":inputData["email"]},{"count":newcount})
-            Item_Data.insert_one({"email":i['_id'], "index":newcount, "name":inputData["name"], "type":inputData["type"], "color":inputData["color"], "addedDate":inputData["dateTime"], "image":inputData["image"]})
-            return Response(status=200)
+            #print(inputData['worntoday'])
+            if inputData['worntoday'] == 'on':
+                today = date.today()
+                worntoday = today.strftime("%d %B %Y")
+            else:
+                worntoday = "Never"
+            #print(str(inputData['worntoday']))
+            #date = "Never"
+            User_Data.update_one({"_id":session["email"]},{'$set':{"count":newcount}})
+            Item_Data.insert_one({"email":i['_id'], "index":newcount, "name":inputData["name"], "type":inputData["type"], "color":inputData["color"], "lastworn":worntoday})
+            return render_template("dashboard.html")
     return Response(status=403)
