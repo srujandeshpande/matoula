@@ -22,7 +22,7 @@ db = pymongo.database.Database(mongo, 'matoula1')
 def root_test():
 	return render_template("login.html")
 
-@app.route('/new_user')
+@app.route('/new_user', methods=['GET'])
 def new_user():
 	return render_template("new_user.html")
 
@@ -66,13 +66,16 @@ def appnew_user():
 def add_new_user():
     User_Data = pymongo.collection.Collection(db, 'User_Data')
     inputData = request.form
+    User_Data.insert_one({"_id":inputData["email"],"password":inputData["password"],"count":0})
+    return render_template("login.html")
+    '''
     for i in json.loads(dumps(User_Data.find())):
         if i['_id'] == inputData['email']:
             return Response(status=403)
         else:
             User_Data.insert_one({"_id":inputData["email"],"password":inputData["password"],"count":0})
             return render_template("login.html")
-
+    '''
 #Forgot Password
 @app.route('/api/forgot_password', methods=['POST'])
 def forgot_password():
