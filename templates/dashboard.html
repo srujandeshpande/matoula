@@ -1,6 +1,26 @@
 <body>
   <div>
-    DASHBOARD
+    {{ session['email']}}'s DASHBOARD
   <div>
 
+    <div>
+      Add new clothes
+      <form action="\add_new_item" method="POST">
+        <input type="text" name="name" value="" placeholder="Name of Clothing"></input>
+        <input type="text" name="type" value="" placeholder="Type of Clothing"></input>
+        <input type="text" name="color" value="" placeholder="Color of Clothing"></input>
+        <label>Worn today?</label><input type="checkbox" name="worntoday" label></input>
+        <input type="submit" name="" value=""></input>
+        <input type="reset" name="" value=""></input>
+      <form>
+    </div>
+
+    <div>
+      <table id="clothestable">
+        <tr>
+          <th>Clothing Number</th><th>Name</th><th>Type</th><th>Color</th><th>Last Worn</th>
+        </tr>
+
+      </table>
+    <div>
 </body>
