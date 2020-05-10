@@ -110,3 +110,25 @@ def add_new_item():
             Item_Data.insert_one({"email":i['_id'], "index":newcount, "name":inputData["name"], "type":inputData["type"], "color":inputData["color"], "lastworn":worntoday})
             return render_template("dashboard.html")
     return Response(status=403)
+
+@app.route('/get_items', methods=['POST'])
+def get_items():
+    Item_Data = pymongo.collection.Collection(db, 'Item_Data')
+    User_Data = pymongo.collection.Collection(db, 'User_Data')
+    #inputData = request.form
+    for i in json.loads(dumps(User_Data.find())):
+        if i['_id'] == session['email']:
+            count = int(i['count'])
+            data = json.loads(dumps(Item_Data.find({"email":i['_id']})))
+            data1 = {}
+            y = 0
+            data1['count'] = 0
+            for x in data:
+                data1["record"+str(y)] = x
+                y+=1
+            data1['count'] = y
+            return data1
+            #res = Item_Data.find({"email":i['_id']})
+            #return res
+            #print(str(data))
+    return Response(status=403)
