@@ -1,12 +1,46 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
 <body>
-  <div>
-    NEW USER REGISTER
-    <form action="/add_new_user" method="POST">
-      <input type="text" name="email" value="" placeholder="Your Email Here"></input>
-      <input type="password" name="password" value="" placeholder="Your Password Here"></input>
-      <input type="submit"></input>
-    <form>
-  <div>
+    {% block content %}
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">New User Form</h2>
+                    <form method="POST" action="/add_new_user">
+
+                        <div class="row row-space">
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">Email</label>
+                                    <input class="input--style-4" type="text" name="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "row row-space">
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">Password</label>
+                                    <input class="input--style-4" type="text" name="password">
+                                </div>
+                            </div>
+                        </div></div>
 
 
-</body>
+                        <div class="p-t-3 button">
+                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock content  %}
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->
