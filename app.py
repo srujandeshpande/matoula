@@ -20,7 +20,12 @@ db = pymongo.database.Database(mongo, 'matoula1')
 
 @app.route('/')
 def root_test():
-	return "Welcome to Matoula!"
+	return render_template("login.html")
+
+@app.route('/new_user')
+def new_user():
+	return render_template("new_user.html")
+
 
 @app.route('/tests/build_test')
 def build_test():
@@ -28,7 +33,7 @@ def build_test():
 
 #Login
 @app.route('/api/login', methods=['POST'])
-def login():
+def applogin():
     User_Data = pymongo.collection.Collection(db, 'User_Data')
     inputData = request.json
     for i in json.loads(dumps(User_Data.find())):
@@ -36,9 +41,18 @@ def login():
             return Response(status=200)
     return Response(status=403)
 
+@app.route('/login', methods=['POST'])
+def weblogin():
+    User_Data = pymongo.collection.Collection(db, 'User_Data')
+    inputData = request.form
+    for i in json.loads(dumps(User_Data.find())):
+        if i['_id'] == inputData['email'] and i['password'] == inputData['password']:
+            return render_template("dashboard.html")
+    return Response(status=403)
+
 #Create New User
 @app.route('/api/new_user', methods=['POST'])
-def new_user():
+def appnew_user():
     User_Data = pymongo.collection.Collection(db, 'User_Data')
     inputData = request.json
     for i in json.loads(dumps(User_Data.find())):
@@ -47,6 +61,17 @@ def new_user():
         else:
             User_Data.insert_one({"_id":inputData["email"],"password":inputData["password"],"count":0})
             return Response(status=200)
+
+@app.route('/add_new_user', methods=['POST'])
+def add_new_user():
+    User_Data = pymongo.collection.Collection(db, 'User_Data')
+    inputData = request.form
+    for i in json.loads(dumps(User_Data.find())):
+        if i['_id'] == inputData['email']:
+            return Response(status=403)
+        else:
+            User_Data.insert_one({"_id":inputData["email"],"password":inputData["password"],"count":0})
+            return render_template("login.html")
 
 #Forgot Password
 @app.route('/api/forgot_password', methods=['POST'])
