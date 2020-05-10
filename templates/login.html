@@ -1,0 +1,22 @@
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div>
+    LOGIN
+    <form id="loginform" action="/login" method="POST">
+      <input type="text" name="email" value="" placeholder="Your Email Here"></input>
+      <input type="password" name="password" value="" placeholder="Your Password Here"></input>
+      <input type="submit"></input>
+    <form>
+  <div>
+
+    <div>
+      <a id="newuserclick">New User</a>
+    </div>
+
+    <script src="{{url_for('static', filename='loginjs.js')}}"></script>
+</body>
