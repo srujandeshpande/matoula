@@ -47,6 +47,7 @@ def weblogin():
     inputData = request.form
     for i in json.loads(dumps(User_Data.find())):
         if i['_id'] == inputData['email'] and i['password'] == inputData['password']:
+            session['email'] = i['_id']
             return render_template("dashboard.html")
     return Response(status=403)
 
