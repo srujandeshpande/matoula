@@ -1,22 +1,52 @@
+{% extends 'base.html' %}
+
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  
 </head>
 
 <body>
   <div>
-    LOGIN
-    <form id="loginform" action="/login" method="POST">
-      <input type="text" name="email" value="" placeholder="Your Email Here"></input>
-      <input type="password" name="password" value="" placeholder="Your Password Here"></input>
-      <input type="submit"></input>
-    <form>
-  <div>
+    
+    {% block content %}
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">LOGIN</h2>
+                    <form id = "loginform" method="POST" action = "/login">
+                                                    
+                        <div class="row row-space">
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">Email</label>
+                                    <input class="input--style-4" type="text" name="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "row row-space">
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">Password</label>
+                                    <input class="input--style-4" type="text" name="password">
+                                </div>
+                            </div>
+                        </div></div>
+                        
+                        
+                        <div class="p-t-3 button">
+                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                        </div>
 
-    <div>
-      <a id="newuserclick">New User</a>
+                    </form>
+                    <div style="text-align: center">
+      <a id="newuserclick" href= "./new_user.html">Register!</a>
     </div>
-
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="{{url_for('static', filename='loginjs.js')}}"></script>
+    {% endblock content  %}
+
+    
 </body>

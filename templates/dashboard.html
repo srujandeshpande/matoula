@@ -1,6 +1,169 @@
-<body>
-  <div>
-    DASHBOARD
-  <div>
+{% extends 'base.html' %}
 
+
+
+{% block content %}
+<style>
+	body{
+		height:100%;
+		width:100%;
+		background-color: white;
+	}
+	.dashboard{
+			text-align: center;
+			display: flex;
+			min-height:40vh;
+			width:100%;
+			flex-direction: column;
+		    background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+	
+	}
+
+	.dashboard-intro{
+		display: inline-block;
+		height:auto;
+		width: auto;
+		margin:0px auto;
+		padding:100px;
+		position:relative;
+	}
+
+	.dashboard-intro p{
+		color:white;
+		font-size:32px;
+	}
+	* {
+box-sizing: border-box;
+}
+body {
+font-family: Roboto, Helvetica, sans-serif;
+}
+/* Fix the button on the left side of the page */
+.open-btn {
+display: flex;
+`
+}
+/* Style and fix the button on the page */
+.open-button {
+background-color: #1c87c9;
+color: white;
+padding: 12px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+opacity: 1;
+position: fixed;
+}
+/* Position the Popup form */
+.login-popup {
+position: relative;
+text-align: center;
+width: 100%;
+}
+/* Hide the Popup form */
+.form-popup {
+display: none;
+position: fixed;
+left: 45%;
+top:5%;
+transform: translate(-45%,5%);
+border: 2px solid #666;
+z-index: 9;
+}
+/* Styles for the form container */
+.form-container {
+max-width: 300px;
+padding: 20px;
+background-color: #fff;
+}
+/* Full-width for input fields */
+.form-container input[type=text], .form-container input[type=password] {
+width: 100%;
+padding: 10px;
+margin: 5px 0 22px 0;
+border: none;
+background: #eee;
+}
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+background-color: #ddd;
+outline: none;
+}
+/* Style submit/login button */
+.form-container .btn {
+background-color: #8ebf42;
+color: #fff;
+padding: 5px 5px;
+border: none;
+cursor: pointer;
+width: 100%;
+margin-bottom:10px;
+opacity: 0.8;
+}
+/* Style cancel button */
+.form-container .cancel {
+background-color: #cc0000;
+}
+/* Hover effects for buttons */
+.form-container .btn:hover, .open-button:hover {
+opacity: 1;
+}
+.open-btn{
+	height:15vh;
+	display: flex;
+	text-align: center;
+}
+.open-button{
+	margin-left: 40%;
+	background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+	color:white;
+	display: inline-block;
+	border-radius: 30px;
+}
+</style>
+<body>
+	<div class = "dashboard container">
+	  <div class ="dashboard-intro">
+	    <p>Hello {{ session['email']}}</p>
+	  </div>
+	</div>
+    
+    <div class = "open-btn">
+      <button class = "open-button" onclick="openForm()">Add new clothes</button></div>
+      <div class = "login-popup">
+      <div id = "popupForm" class  ='form-popup'>
+      <form action="\add_new_item" method="POST" class = "form-container">
+        <input type="text" name="name" value="" placeholder="Name of Clothing"></input>
+        <input type="text" name="type" value="" placeholder="Type of Clothing"></input>
+        <input type="text" name="color" value="" placeholder="Color of Clothing"></input>
+        <label>Worn today?</label><input type="checkbox" name="worntoday" label></input>
+        <button type="submit" class ="btn btn-success" name="" value="">Submit</button>
+        <input type="reset" name="" value=""></input>
+        <button type = "button" class="btn cancel" onclick="closeForm()">Cancel</button>
+      </form>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+    	function openForm() {
+        document.getElementById("popupForm").style.display="block";
+      }
+      
+      function closeForm() {
+        document.getElementById("popupForm").style.display="none";
+      }
+    </script>
+
+    <div>
+      <table id="clothestable">
+        <tr>
+          <th>Clothing Number</th><th>Name</th><th>Type</th><th>Color</th><th>Last Worn</th>
+        </tr>
+
+      </table>
+    <div>
+
+      
 </body>
+
+{% endblock content %}
