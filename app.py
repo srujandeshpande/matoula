@@ -70,14 +70,8 @@ def add_new_user():
     inputData = request.form
     User_Data.insert_one({"_id":inputData["email"],"password":inputData["password"],"count":0})
     return render_template("login.html")
-    '''
-    for i in json.loads(dumps(User_Data.find())):
-        if i['_id'] == inputData['email']:
-            return Response(status=403)
-        else:
-            User_Data.insert_one({"_id":inputData["email"],"password":inputData["password"],"count":0})
-            return render_template("login.html")
-    '''
+
+
 #Forgot Password
 @app.route('/api/forgot_password', methods=['POST'])
 def forgot_password():
@@ -128,7 +122,14 @@ def get_items():
                 y+=1
             data1['count'] = y
             return data1
-            #res = Item_Data.find({"email":i['_id']})
-            #return res
-            #print(str(data))
     return Response(status=403)
+
+@app.route('/item_worn_today', methods=['POST'])
+def item_worn_today():
+    Item_Data = pymongo.collection.Collection(db, 'Item_Data')
+    User_Data = pymongo.collection.Collection(db, 'User_Data')
+    inputData = request.json
+    print(str(inputData))
+    today = date.today().strftime("%d %B %Y")
+    Item_Data.update_many(inputData, {'$set':{'lastworn':today}})
+    return Response(status=200)
